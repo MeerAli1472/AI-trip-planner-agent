@@ -172,29 +172,44 @@ Below are the external APIs used in this project and their purpose.
 
 # How to Run the Project
 Step 1️⃣: Clone the Repository
---git clone https://github.com/yourusername/ai-travel-planner.git
-cd ai-travel-planner
+
+- git clone https://github.com/yourusername/ai-travel-planner.git
+
+- cd ai-travel-planner
+
 Step 2️⃣: Install Dependencies
---pip install -r requirements.txt 
+
+- pip install -r requirements.txt 
+
 Step 3️⃣: Configure Environment Variables in .env file
+
 OPENAI_API_KEY=your_openai_api_key = ""
+
 GPLACES_API_KEY=your_geoapify_api_key = ""
+
 UNSPLASH_API_KEY=your_unsplash_api_key = ""
+
 WEATHER_API_KEY=your_weather_api_key = ""
+
 CURRENCY_API_KEY=your_currency_api_key = ""
 
 Step 4️⃣: Run FastAPI Backend
 
---uvicorn main:app --reload --port 8000
+- uvicorn main:app --reload --port 8000
 
 Step 5️⃣: Run Streamlit Frontend
--- streamlit run app.py
+
+- streamlit run app.py
 
 # Help and Powered by
--JMM Technologies
--Krish Naik Youtube
--Campusx Youtube
--Chatgpt
--Deepseek
--google
-Thaks to all
+
+- JMM Technologies
+- Krish Naik Youtube
+- Campusx Youtube
+- Chatgpt
+- Deepseek
+- google
+
+**Thaks to all**
+Best Regard:
+Sayed Meer
