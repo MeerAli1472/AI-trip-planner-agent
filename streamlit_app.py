@@ -1,10 +1,11 @@
 import streamlit as st
 import requests
 import datetime
-
+import os
+from agent.agentic_workflow import GraphBuilder
 from utils.chat_history import init_session, create_new_chat, add_message, get_messages
 
-BASE_URL = "http://localhost:8000"
+BASE_URL = os.getenv("API_URL", "local")
 
 st.set_page_config(
     page_title="🌍 Travel Planner Agentic Application",
@@ -62,13 +63,43 @@ if user_input:
     st.chat_message("user").write(user_input)
 
     try:
+
         with st.spinner("Bot is thinking..."):
+            
             payload = {
             "question": user_input,
             "thread_id": st.session_state.current_chat
             }
 
-            response = requests.post(f"{BASE_URL}/query", json=payload)
+            if BASE_URL == "local":
+                # Run agent directly (for Streamlit Cloud)
+                graph = GraphBuilder(model_provider="groq")
+                react_app = graph()
+
+                messages = {"messages": [user_input]}
+
+                output = react_app.invoke(
+                    messages,
+                    config={
+                        "configurable": {
+                            "thread_id": st.session_state.current_chat
+                        }
+                    }
+    )
+
+    if isinstance(output, dict) and "messages" in output:
+        answer = output["messages"][-1].content
+    else:
+        answer = str(output)
+
+else:
+    # Use FastAPI backend
+    response = requests.post(f"{BASE_URL}/query", json=payload)
+
+    if response.status_code == 200:
+        answer = response.json().get("answer", "No answer returned.")
+    else:
+        st.error("Bot failed to respond: " + response.text)
 
         if response.status_code == 200:
 
