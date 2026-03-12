@@ -1,6 +1,11 @@
 langchain
+langgraph==1.0.10
+langgraph-checkpoint==4.0.1
+langgraph-checkpoint-sqlite==3.0.3
+langchain==1.2.10
+langchain-community==0.4.1
+langchain-groq==1.1.2
 langchain-core
-langchain-community
 langchain-experimental
 fastapi
 python-dotenv
@@ -11,9 +16,9 @@ httpx
 requests
 langchain_google_community
 langchain_tavily
-langchain_groq
+
 langchain_openai
-langgraph
+
 langchain-google-community[places]
 
 
