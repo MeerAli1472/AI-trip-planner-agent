@@ -2,7 +2,7 @@ import os
 import requests
 import re
 from typing import List, Dict
-from langchain.tools import tool
+from langchain_core.tools import tool
 
 from dotenv import load_dotenv
 from utils.place_info_search import GeoapifyPlaceSearchTool
