@@ -1,9 +1,9 @@
 import streamlit as st
-import requests
 import datetime
+from agent.agentic_workflow import GraphBuilder
 from utils.chat_history import init_session, create_new_chat, add_message, get_messages
 
-BASE_URL = "http://localhost:8000"
+# BASE_URL = "http://localhost:8000"
 
 st.set_page_config(
     page_title="🌍 Travel Planner Agentic Application",
@@ -47,31 +47,34 @@ for msg in messages:
         st.chat_message("user").write(msg["content"])
     else:
         st.chat_message("assistant").write(msg["content"])
-
-# ==========================
-# CHAT INPUT
-# ==========================
-
 user_input = st.chat_input("Plan a trip to Islamabad for 5 days...")
 
 if user_input:
 
     add_message("user", user_input)
-
     st.chat_message("user").write(user_input)
 
     try:
         with st.spinner("Bot is thinking..."):
-            payload = {
-            "question": user_input,
-            "thread_id": st.session_state.current_chat
-            }
 
-            response = requests.post(f"{BASE_URL}/query", json=payload)
+            graph = GraphBuilder(model_provider="groq")
+            react_app = graph()
 
-        if response.status_code == 200:
+            messages = {"messages": [user_input]}
 
-            answer = response.json().get("answer", "No answer returned.")
+            output = react_app.invoke(
+                messages,
+                config={
+                    "configurable": {
+                        "thread_id": st.session_state.current_chat
+                    }
+                }
+            )
+
+            if isinstance(output, dict) and "messages" in output:
+                answer = output["messages"][-1].content
+            else:
+                answer = str(output)
 
             markdown_content = f"""
 # 🌍 AI Travel Plan
@@ -89,11 +92,7 @@ if user_input:
 """
 
             add_message("assistant", markdown_content)
-
             st.chat_message("assistant").markdown(markdown_content)
-
-        else:
-            st.error("Bot failed to respond: " + response.text)
 
     except Exception as e:
         st.error(f"Response failed due to {e}")
