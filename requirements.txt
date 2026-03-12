@@ -1,37 +1,16 @@
-# Core dependencies
-streamlit==1.54.0
-fastapi==0.135.1
-uvicorn==0.41.0
-python-dotenv==1.2.2
-requests==2.32.5
-httpx==0.28.1
-pydantic==2.12.5
-
-# LangChain & AI tools
-langchain==1.2.10
-langchain-core==1.2.16
-langchain-community==0.4.1
-langchain-experimental==0.4.1
-langchain-openai==1.1.10
-langchain-groq==1.1.2
-langchain-tavily==0.2.17
-langchain-google-community==3.0.5
-langgraph==1.0.10
-
-# AI / ML / embeddings
-openai==2.26.0
-groq==0.37.1
-tiktoken==0.12.0
-transformers==5.2.0
-sentence-transformers==5.2.3
-torch==2.10.0
-faiss-cpu==1.13.2
-
-# Maps / Places / APIs
-googlemaps==4.10.0
-google-search-results==2.4.2
-
-# Utilities
-numpy==2.2.6
-pandas==2.3.3
-python-multipart==0.0.22
+langchain
+langchain-community
+langchain-experimental
+fastapi
+python-dotenv
+streamlit
+uvicorn
+pydantic
+httpx
+requests
+langchain_google_community
+langchain_tavily
+langchain_groq
+langchain_openai
+langgraph
+langchain-google-community[places]
